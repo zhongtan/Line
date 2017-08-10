@@ -32,7 +32,7 @@ public class LineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restaurant_list_view);
 
-        // TODO: get the user's latitude and longitude and then build the URL used for querying the data
+        // TODO: get the user's latitude and longitude and then build the URL
         String requestURL = createUrl();
 
         // start the AsyncTask to fetch the restaurant data
@@ -60,8 +60,9 @@ public class LineActivity extends AppCompatActivity {
                 Restaurant restaurant = mAdapter.getItem(i);
 
                 // TODO: create a different intent
-                // Creates an Intent that will load a map of San Francisco
-                Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4194");
+                Uri gmmIntentUri = Uri.parse("geo:" + restaurant.getLatitude() + "," +
+                        restaurant.getLongitude() + "?q=" + restaurant.getLatitude() + "," +
+                        restaurant.getLongitude() + "(" + restaurant.getName() + ")");
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
                 startActivity(mapIntent);

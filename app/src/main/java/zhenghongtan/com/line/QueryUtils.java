@@ -61,9 +61,12 @@ public final class QueryUtils {
             JSONArray results = root.getJSONArray("results");
             for (int i = 0; i < results.length(); i++) {
                 JSONObject restaurant = results.getJSONObject(i);
+                JSONObject restaurantLocation = restaurant.getJSONObject("geometry").getJSONObject("location");
+
                 if (restaurant.has("rating")) {
                     restaurants.add(new Restaurant(restaurant.getDouble("rating"),
-                            restaurant.getString("name")));
+                            restaurant.getString("name"), restaurantLocation.getString("lat"),
+                            restaurantLocation.getString("lng")));
                 }
             }
         } catch (JSONException e) {
