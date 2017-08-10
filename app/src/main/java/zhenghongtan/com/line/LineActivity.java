@@ -30,7 +30,7 @@ public class LineActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_line);
+        setContentView(R.layout.restaurant_list_view);
 
         // TODO: get the user's latitude and longitude and then build the URL used for querying the data
         String requestURL = createUrl();
@@ -45,7 +45,7 @@ public class LineActivity extends AppCompatActivity {
         // Create a new adapter with the list of restaurants as input
         mAdapter = new LineAdapter(this, new ArrayList<Restaurant>());
 
-        /**
+        /*
          * Set the adapter on the {@link ListView} so the list can be populated in the
          * user interface.
          */
@@ -67,6 +67,20 @@ public class LineActivity extends AppCompatActivity {
                 startActivity(mapIntent);
             }
         });
+    }
+
+    /**
+     * Create the URL with the user's given location and returns a request URL for querying
+     * restaurants that are 500 meters away from the user.
+     */
+    private String createUrl() {
+        StringBuilder url = new StringBuilder();
+        url.append(PRE_URL);
+        url.append("47.6553929,-122.3072732");
+        url.append(POST_URL);
+        url.append(API_KEY);
+
+        return url.toString();
     }
 
     /**
@@ -105,19 +119,5 @@ public class LineActivity extends AppCompatActivity {
                 mAdapter.addAll(data);
             }
         }
-    }
-
-    /**
-     * Create the URL with the user's given location and returns a request URL for querying
-     * restaurants that are 500 meters away from the user.
-     */
-    private String createUrl() {
-        StringBuilder url = new StringBuilder();
-        url.append(PRE_URL);
-        url.append("47.6553929,-122.3072732");
-        url.append(POST_URL);
-        url.append(API_KEY);
-
-        return url.toString();
     }
 }

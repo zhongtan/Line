@@ -61,8 +61,10 @@ public final class QueryUtils {
             JSONArray results = root.getJSONArray("results");
             for (int i = 0; i < results.length(); i++) {
                 JSONObject restaurant = results.getJSONObject(i);
-                restaurants.add(new Restaurant(restaurant.getDouble("rating"),
-                        restaurant.getString("name")));
+                if (restaurant.has("rating")) {
+                    restaurants.add(new Restaurant(restaurant.getDouble("rating"),
+                            restaurant.getString("name")));
+                }
             }
         } catch (JSONException e) {
             // If an error is thrown when executing any of the above statements in the "try" block,
